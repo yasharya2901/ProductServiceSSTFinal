@@ -31,14 +31,14 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public List<Product> getAllProducts() {
         RestTemplate restTemplate = new RestTemplate();
-//        List<FakeStoreProductDTO> fakeStoreProductDTOs = restTemplate.getForObject("https://fakestoreapi.com/products", List.class);
-        ResponseEntity<List<FakeStoreProductDTO>> response = restTemplate.exchange(
-                "https://fakestoreapi.com/products",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<FakeStoreProductDTO>>() {}
-        );
-        List<FakeStoreProductDTO> fakeStoreProductDTOs = response.getBody();
+        FakeStoreProductDTO[] fakeStoreProductDTOs = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
+//        ResponseEntity<List<FakeStoreProductDTO>> response = restTemplate.exchange(
+//                "https://fakestoreapi.com/products",
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<List<FakeStoreProductDTO>>() {}
+//        );
+//        List<FakeStoreProductDTO> fakeStoreProductDTOs = response.getBody();
         if (fakeStoreProductDTOs == null) {
             return null;
         }
