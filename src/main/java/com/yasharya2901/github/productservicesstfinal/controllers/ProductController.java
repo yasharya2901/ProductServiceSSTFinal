@@ -2,12 +2,13 @@ package com.yasharya2901.github.productservicesstfinal.controllers;
 
 import com.yasharya2901.github.productservicesstfinal.dtos.FakeStoreProductDTO;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
-import com.yasharya2901.github.productservicesstfinal.services.FakeStoreProductService;
 import com.yasharya2901.github.productservicesstfinal.services.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // This controller is capable to host HTTP API
 @RestController
@@ -25,5 +26,8 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-    
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
 }
