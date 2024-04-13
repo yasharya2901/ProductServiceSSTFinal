@@ -25,19 +25,8 @@ public class ProductController {
     }
     // localhost:8080/products/10
     @GetMapping("/{id}")
-    public ResponseEntity getProductById(@PathVariable("id") Long id){
-        try{
-            ResponseEntity<Product> responseEntity = null;
-            Product product = productService.getProductById(id);
-            responseEntity = new ResponseEntity<>(product, HttpStatus.OK);
-            return responseEntity;
-        } catch (RuntimeException exception) {
-            ExceptionDTO dto = new ExceptionDTO();
-            dto.setMessage("Something went wrong");
-            dto.setResolution("Do XYZ");
-            ResponseEntity<ExceptionDTO> responseEntity = new ResponseEntity<>(dto, HttpStatus.NOT_FOUND);
-            return responseEntity;
-        }
+    public Product getProductById(@PathVariable("id") Long id){
+        return productService.getProductById(id);
     }
 
     @GetMapping
