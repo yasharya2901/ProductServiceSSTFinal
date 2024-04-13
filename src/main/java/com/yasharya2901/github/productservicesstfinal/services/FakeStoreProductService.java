@@ -1,6 +1,7 @@
 package com.yasharya2901.github.productservicesstfinal.services;
 
 import com.yasharya2901.github.productservicesstfinal.dtos.FakeStoreProductDTO;
+import com.yasharya2901.github.productservicesstfinal.exceptions.ProductNotFoundException;
 import com.yasharya2901.github.productservicesstfinal.models.Category;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
 import org.springframework.core.ParameterizedTypeReference;
@@ -18,11 +19,11 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id){
         RestTemplate restTemplate = new RestTemplate();
         FakeStoreProductDTO fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
         if (fakeStoreProductDto == null) {
-            return null;
+            throw new ProductNotFoundException(id, "Product with " + id + " doesn't exist");
         }
         // convert FakeStoreProductDto object to Product object
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
@@ -42,6 +43,7 @@ public class FakeStoreProductService implements ProductService{
         if (fakeStoreProductDTOs == null) {
             return null;
         }
+
         List<Product> products = new ArrayList<>();
         for (FakeStoreProductDTO fakeStoreProductDto: fakeStoreProductDTOs) {
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));

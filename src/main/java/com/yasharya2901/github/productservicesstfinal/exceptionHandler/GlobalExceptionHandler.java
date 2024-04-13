@@ -1,6 +1,7 @@
 package com.yasharya2901.github.productservicesstfinal.exceptionHandler;
 
 import com.yasharya2901.github.productservicesstfinal.dtos.ExceptionDTO;
+import com.yasharya2901.github.productservicesstfinal.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +31,15 @@ public class GlobalExceptionHandler {
         ExceptionDTO dto = new ExceptionDTO();
         dto.setMessage("Something Went Wrong");
         dto.setResolution("Exception Found");
+        ResponseEntity<ExceptionDTO> response = new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+        return response;
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ExceptionDTO> handleProductNotFoundException(ProductNotFoundException productNotFoundException) {
+        ExceptionDTO dto = new ExceptionDTO();
+        dto.setMessage("Product with the ID "+ productNotFoundException.getId()+ " doesn't exist");
+        dto.setResolution("Please enter a valid ID");
         ResponseEntity<ExceptionDTO> response = new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
         return response;
     }
