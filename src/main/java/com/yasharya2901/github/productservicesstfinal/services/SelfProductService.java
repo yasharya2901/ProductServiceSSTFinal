@@ -1,7 +1,9 @@
 package com.yasharya2901.github.productservicesstfinal.services;
 
 import com.yasharya2901.github.productservicesstfinal.exceptions.ProductNotFoundException;
+import com.yasharya2901.github.productservicesstfinal.models.Category;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
+import com.yasharya2901.github.productservicesstfinal.repositories.CategoryRepository;
 import com.yasharya2901.github.productservicesstfinal.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,10 @@ import java.util.Optional;
 //@Primary // This will tell the spring if there are more than two class marked as service, this should be the primary one.
 public class SelfProductService implements ProductService{
     private ProductRepository productRepository;
-    SelfProductService(ProductRepository productRepository) {
+    private CategoryRepository categoryRepository;
+    SelfProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -33,6 +37,10 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product createProduct(Product product) {
+        Category category = product.getCategory();
+        if (category.getId() == null) { // save the category to the database
+            product.setCategory(categoryRepository.save(category));
+        }
         return productRepository.save(product);
     }
 }
