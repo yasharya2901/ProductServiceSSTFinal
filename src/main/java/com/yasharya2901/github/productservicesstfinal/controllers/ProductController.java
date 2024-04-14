@@ -4,6 +4,7 @@ import com.yasharya2901.github.productservicesstfinal.dtos.ExceptionDTO;
 import com.yasharya2901.github.productservicesstfinal.dtos.FakeStoreProductDTO;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
 import com.yasharya2901.github.productservicesstfinal.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
-    ProductController(ProductService productService) {
+    ProductController(@Qualifier("SelfProductService") ProductService productService) {
         this.productService = productService;
     }
     // localhost:8080/products/10

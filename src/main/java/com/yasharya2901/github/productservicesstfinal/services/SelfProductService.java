@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("SelfProductService")
+//@Primary // This will tell the spring if there are more than two class marked as service, this should be the primary one.
 public class SelfProductService implements ProductService{
     private ProductRepository productRepository;
     SelfProductService(ProductRepository productRepository) {
