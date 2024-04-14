@@ -1,5 +1,6 @@
 package com.yasharya2901.github.productservicesstfinal.services;
 
+import com.yasharya2901.github.productservicesstfinal.exceptions.CategoryNotFoundException;
 import com.yasharya2901.github.productservicesstfinal.exceptions.ProductNotFoundException;
 import com.yasharya2901.github.productservicesstfinal.models.Category;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
@@ -41,6 +42,13 @@ public class SelfProductService implements ProductService{
         if (category.getId() == null) { // save the category to the database
             product.setCategory(categoryRepository.save(category));
         }
-        return productRepository.save(product);
+        Optional<Category> optionalCategory = categoryRepository.findById(category.getId());
+        if (optionalCategory.isEmpty()){
+            // throw an exception
+            throw new CategoryNotFoundException(category.getId(),"Invalid Category Id was passed.");
+        }
+        Product saved_product = productRepository.save(product);
+        saved_product.setCategory(optionalCategory.get());
+        return saved_product;
     }
 }
