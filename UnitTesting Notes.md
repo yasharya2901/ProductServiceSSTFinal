@@ -145,8 +145,10 @@ Test Doubles are objects that are used in place of the real object in the test c
     </thead>
     <tbody>
         <tr colspan="3"> 
-            ----------------> Reality Increases
+            <td>----------------> Reality Increases</td>
         </tr>
-        <tr colspan="3"> Hardcoding Increase <--------------</tr>
+        <tr colspan="3">
+            <td>Hardcoding Increase <--------------</td>
+        </tr>
     </tbody>
 </table>
