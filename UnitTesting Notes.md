@@ -2,6 +2,11 @@
 
 # Unit Testing
 
+## Properties of Unit Test Cases
+- Fast
+- Isolated
+- Mocked
+
 ## Best Practices
 ### 3 A's for Unit Testing
 - Arrange - Create the input for the test
