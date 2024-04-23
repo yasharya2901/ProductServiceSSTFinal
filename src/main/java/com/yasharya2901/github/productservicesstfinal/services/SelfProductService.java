@@ -2,6 +2,7 @@ package com.yasharya2901.github.productservicesstfinal.services;
 
 import com.yasharya2901.github.productservicesstfinal.exceptions.CategoryNotFoundException;
 import com.yasharya2901.github.productservicesstfinal.exceptions.ProductNotFoundException;
+import com.yasharya2901.github.productservicesstfinal.exceptions.ProductsNotFoundException;
 import com.yasharya2901.github.productservicesstfinal.models.Category;
 import com.yasharya2901.github.productservicesstfinal.models.Product;
 import com.yasharya2901.github.productservicesstfinal.repositories.CategoryRepository;
@@ -33,7 +34,11 @@ public class SelfProductService implements ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        List<Product> products = productRepository.findAll();
+        if (products.isEmpty()){
+            throw new ProductsNotFoundException("No products found");
+        }
+        return products;
     }
 
     @Override
